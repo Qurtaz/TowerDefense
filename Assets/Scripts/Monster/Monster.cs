@@ -23,12 +23,12 @@ public class Monster : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-	    if(_agent.remainingDistance <= 0.5f)
+	    if(_agent.remainingDistance <= 0.5f || hp<=0)
         {
             Destroy(gameObject);
         }
 	}
-    public void recivedDmg(float dmg)
+    public void RecivedDmg(float dmg)
     {
         hp = hp - dmg / armor;
     }

@@ -17,3 +17,9 @@ public static class PlayerInput
     public static string Cancel = "Cancel";
     public static string Submit = "Submit";
 }
+
+public static class TagGame
+{
+    public static string EnemyTag = "Enemy";
+    public static string BuildingGrundTag = "Building";
+}

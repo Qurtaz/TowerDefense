@@ -9,11 +9,11 @@ public class Tower : MonoBehaviour {
     [Header("Shoot Atribute")]
     [SerializeField]
     private GameObject _target;
-    public float fireRate;
+    [Range(0.001f,50)]
+    public float fireRate = 0.02f;
     [SerializeField]
-    private float atackColdown = 2f;
+    private float atackColdown;
     public float damage;
-    public string enemyTag;
 
     [Header("Bulet Data")]
     [SerializeField]
@@ -48,26 +48,29 @@ public class Tower : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(_target == null && other.gameObject.tag == enemyTag)
+        if(_target == null && other.gameObject.tag == TagGame.EnemyTag)
         {
             _target = other.gameObject;
         }
     }
     void OnTriggerStay(Collider other)
     {
-        if(_target == null && other.gameObject.tag == enemyTag)
+        if(_target == null && other.gameObject.tag == TagGame.EnemyTag)
         {
             _target = other.gameObject;
         }
         else
         {
-            if (_target != null && _target.tag == enemyTag)
+            if (_target != null && _target.tag == TagGame.EnemyTag && other.gameObject == _target)
             {
                 if(atackColdown <= 0)
                 {
-                    StartCoroutine(Shoot());
+                    Shoot();
+                    atackColdown = 1f / fireRate;
+                    Debug.Log(atackColdown);
                 }
-                atackColdown =- Time.deltaTime;
+                atackColdown = atackColdown - Time.deltaTime;
+                Debug.Log(atackColdown + " Odliczanie");
             }
         }
         
@@ -79,14 +82,15 @@ public class Tower : MonoBehaviour {
             _target = null;
         }
     }
-    IEnumerator Shoot()
+    void Shoot()
     {
-        Debug.Log("Shoot");
          GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation) as GameObject;
         Shoot buteltScript = bullet.GetComponent<Shoot>();
-        buteltScript.SetTarget(_target);
-        buteltScript.SetDmg(damage);
-        atackColdown = 1f / fireRate;
-        yield return new WaitForSeconds(atackColdown);
+            if(buteltScript != null)
+        {
+            buteltScript.SetTarget(_target);
+            buteltScript.SetDmg(damage);
+        }
+        
     }
 }

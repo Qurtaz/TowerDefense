@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public struct Wave {
+
     public int howManyMonster;
     public GameObject prefab;
 

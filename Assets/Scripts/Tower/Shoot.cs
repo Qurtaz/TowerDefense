@@ -23,14 +23,23 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if(_target == null)
-  //      {
-  //          Destroy(gameObject);
-  //          return;
-  //      }
-        //else
-        //{
-        //    transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, speed * Time.deltaTime);
-        //}
-	}
+        if (_target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, speed * Time.deltaTime);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == TagGame.EnemyTag)
+        {
+            other.gameObject.GetComponent<Monster>().RecivedDmg(_dmg);
+            Destroy(gameObject);
+        }
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour {
+    public float cost;
     [Header("Ranger")]
     public GameObject range;
     public float rangeDistance = 10;
@@ -67,10 +68,8 @@ public class Tower : MonoBehaviour {
                 {
                     Shoot();
                     atackColdown = 1f / fireRate;
-                    Debug.Log(atackColdown);
                 }
                 atackColdown = atackColdown - Time.deltaTime;
-                Debug.Log(atackColdown + " Odliczanie");
             }
         }
         

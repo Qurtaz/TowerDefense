@@ -1,20 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnPoints : MonoBehaviour {
-    public List<Wave> waves = new List<Wave>();
+    [SerializeField]
+    private List<Wave> waves = new List<Wave>();
     public GameObject destination;
+    public GameControler controler;
     public int actualWave = 0;
-    public GameObject monster;
+    [Header("UI")]
+    public Text TimeText;
+    public float deltaTime = 0.1f;
+    private float time;
 	// Use this for initialization
 	void Start () {
-        waves.Add(new Wave(1, monster));
+        waves = controler.wawes;
+        time = 2;
+        StartCoroutine(StartRund());
 	}
-    public void StartRund()
-    {
-        //waves = w;
-        StartCoroutine(CreateWave());
+    IEnumerator StartRund()
+    {   
+        for(int z=0; z <= 5;)
+        {
+            Debug.Log(Time.deltaTime);
+            Debug.Log("Rund" + actualWave);
+            if (actualWave <= waves.Count)
+            {
+                if (time <= 0)
+                {
+                    yield return StartCoroutine(CreateWave());
+                }
+                time = time - deltaTime;
+                yield return new WaitForSeconds(deltaTime);
+            }
+            else
+            {
+                z = 6;
+            }
+        }           
     }
     IEnumerator CreateWave()
     {
@@ -27,9 +51,13 @@ public class SpawnPoints : MonoBehaviour {
         {
             for (int z = 0; z <= waves[actualWave].howManyMonster; z++)
             {
+                controler.money += 150;
                 CreateMonster(waves[actualWave].prefab);
+                time = controler.time;
+                Debug.Log(time);
                 yield return new WaitForSeconds(0.2f);
             }
+            time = controler.time;
             actualWave++;
         }
     }
@@ -41,6 +69,6 @@ public class SpawnPoints : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-		
+        TimeText.text = time.ToString();
 	}
 }

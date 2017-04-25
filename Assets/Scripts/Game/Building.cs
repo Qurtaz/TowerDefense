@@ -18,13 +18,13 @@ public class Building : MonoBehaviour {
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         if (Physics.Raycast(ray.origin, ray.direction, out hit, distance,layerMask))
         {
             if(Input.GetMouseButtonDown(0))
             {
                 
                 GameObject po = hit.transform.gameObject;
-                Debug.Log(po);
                 buildingUI.SetBuildingTarget(po);
             }
         }

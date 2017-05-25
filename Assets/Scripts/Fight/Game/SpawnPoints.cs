@@ -63,9 +63,10 @@ public class SpawnPoints : MonoBehaviour {
     }
 	void CreateMonster(GameObject Prefab)
     {
-            GameObject monsterObject = Instantiate(Prefab, transform.position, transform.rotation) as GameObject;
-            Monster monsterScripts = monsterObject.GetComponent<Monster>();
-            monsterScripts.SetDescination(destination);
+        GameObject monsterObject = Instantiate(Prefab, transform.position, transform.rotation) as GameObject;
+        monsterObject.transform.SetParent(transform);
+        Monster monsterScripts = monsterObject.GetComponent<Monster>();
+        monsterScripts.SetDescination(destination);
     }
 	// Update is called once per frame
 	void Update () {

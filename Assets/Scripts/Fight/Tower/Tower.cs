@@ -105,6 +105,7 @@ public class Tower : MonoBehaviour {
     void Shoot()
     {
          GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation) as GameObject;
+        bullet.transform.SetParent(bulletSpawnPoint.transform);
         Shoot buteltScript = bullet.GetComponent<Shoot>();
             if(buteltScript != null)
         {

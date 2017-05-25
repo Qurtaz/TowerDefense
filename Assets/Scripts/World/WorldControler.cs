@@ -42,7 +42,6 @@ public class WorldControler : MonoBehaviour {
                 finishPlane.SetActive(true);
             }
         }
-		
 	}
     private void StartGame()
     {
@@ -78,5 +77,9 @@ public class WorldControler : MonoBehaviour {
             }
         }
         return true;
+    }
+    public void ActivePlane(GameObject data)
+    {
+        data.SetActive(true);
     }
 }

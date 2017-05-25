@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Wave {
-    [Range(1,40)]
+public struct Wave {
+
     public int howManyMonster;
     public GameObject prefab;
 

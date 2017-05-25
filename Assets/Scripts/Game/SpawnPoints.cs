@@ -1,44 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpawnPoints : MonoBehaviour {
-    [SerializeField]
-    private List<Wave> waves = new List<Wave>();
+    public List<Wave> waves = new List<Wave>();
     public GameObject destination;
-    public GameControler controler;
     public int actualWave = 0;
-    [Header("UI")]
-    public Text TimeText;
-    public float deltaTime = 0.1f;
-    private float time;
+    public GameObject monster;
 	// Use this for initialization
 	void Start () {
-        waves = controler.wawes;
-        time = 2;
-        StartCoroutine(StartRund());
+        waves.Add(new Wave(10, monster));
 	}
-    IEnumerator StartRund()
-    {   
-        for(int z=0; z <= 5;)
-        {
-            Debug.Log(Time.deltaTime);
-            Debug.Log("Rund" + actualWave);
-            if (actualWave <= waves.Count)
-            {
-                if (time <= 0)
-                {
-                    yield return StartCoroutine(CreateWave());
-                }
-                time = time - deltaTime;
-                yield return new WaitForSeconds(deltaTime);
-            }
-            else
-            {
-                z = 6;
-            }
-        }           
+    public void StartRund()
+    {
+        //waves = w;
+        Debug.Log("Start rund");
+        StartCoroutine(CreateWave());
     }
     IEnumerator CreateWave()
     {
@@ -49,15 +26,12 @@ public class SpawnPoints : MonoBehaviour {
         }
         else
         {
+            Debug.Log("Monster");
             for (int z = 0; z <= waves[actualWave].howManyMonster; z++)
             {
-                controler.money += 150;
                 CreateMonster(waves[actualWave].prefab);
-                time = controler.time;
-                Debug.Log(time);
                 yield return new WaitForSeconds(0.2f);
             }
-            time = controler.time;
             actualWave++;
         }
     }
@@ -69,6 +43,6 @@ public class SpawnPoints : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        TimeText.text = time.ToString();
+		
 	}
 }

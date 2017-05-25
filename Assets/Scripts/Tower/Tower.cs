@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour {
-    public float cost;
     [Header("Ranger")]
     public GameObject range;
     public float rangeDistance = 10;

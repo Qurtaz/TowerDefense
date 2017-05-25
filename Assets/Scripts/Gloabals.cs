@@ -22,4 +22,24 @@ public static class TagGame
 {
     public static string EnemyTag = "Enemy";
     public static string BuildingGrundTag = "Building";
+    public static string City = "City";
+}
+
+public  enum TypeMonster
+{
+    Normal,
+    Tank,
+    Speeder
+}
+public enum ownership
+{
+    Player,
+    Enemy,
+    Neutral
+}
+[System.Serializable]
+public struct Material2
+{
+    public string name;
+    public int countity;
 }
